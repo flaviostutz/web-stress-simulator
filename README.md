@@ -23,10 +23,10 @@ Where:
 * "output": generates "nbytes" of text data as response. Mime type is "text/plain".
 
 Examples:
-* http://localhost:8080/cpu?time=1000 - causes a request to last one second. During that time it will try to use 100% of a CPU core.
-* http://localhost:8080/memory?nbytes=10000000&time=5000 - causes a request to last five seconds. During that time 10MB of memory will be allocated
-* http://localhost:8080/delay?time=30000 - causes a request to last 30 seconds. During that time no CPU resources are spent, simulating slow or hung backend calls
-* http://localhost:8080/delay?time=3000&random=true - causes a request to last, randomically, from 0 to 3 seconds
-* http://localhost:8080/output?nbytes=3000 - causes 3KB of random text data to be returned from the server
-* http://localhost:8080/output?nbytes=3000&time=60000 - the same as above, but now it will generate 3KB of data with a data rate of 0.5b/s so that it will last 60 seconds to output the whole data. It's usefull to test network appliances under slow connections conditions
-* http://localhost:8080/delay?time=3000&random=true&http-status=500 - causes a request with random duration (0-3s) to return a response indicating an internal error
+* http://localhost:8080/web-stress-simulator-1.0.0/cpu?time=1000 - causes a request to last one second. During that time it will try to use 100% of a CPU core.
+* http://localhost:8080/web-stress-simulator-1.0.0/memory?nbytes=10000000&time=5000 - causes a request to last five seconds. During that time 10MB of memory will be allocated
+* http://localhost:8080/web-stress-simulator-1.0.0/delay?time=30000 - causes a request to last 30 seconds. During that time no CPU resources are spent, simulating slow or hung backend calls
+* http://localhost:8080/web-stress-simulator-1.0.0/delay?time=3000&random=true - causes a request to last, randomically, from 0 to 3 seconds
+* http://localhost:8080/web-stress-simulator-1.0.0/output?nbytes=3000 - causes 3KB of random text data to be returned from the server
+* http://localhost:8080/web-stress-simulator-1.0.0/output?nbytes=3000&time=60000 - the same as above, but now it will generate 3KB of data with a data rate of 0.5b/s so that it will last 60 seconds to output the whole data. It's usefull to test network appliances under slow connections conditions
+* http://localhost:8080/web-stress-simulator-1.0.0/delay?time=3000&random=true&http-status=500 - causes a request with random duration (0-3s) to return a response indicating an internal error
