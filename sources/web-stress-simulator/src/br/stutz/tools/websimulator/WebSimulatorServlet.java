@@ -107,7 +107,7 @@ public class WebSimulatorServlet extends HttpServlet {
 			response.setStatus(httpStatus);
 
 			if(isLog) {
-				String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + ",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + ",\n   \"result\":\"success\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\"\n   \"info\":\"\"\n   \"timestamp\":\"" + System.currentTimeMillis() + "\"\n   \"website\":\"\"\n}";
+				String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + "\",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + "\",\n   \"result\":\"success\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\"\n   \"info\":\"\"\n   \"timestamp\":\"" + System.currentTimeMillis() + "\"\n   \"website\":\"\"\n}";
 				System.out.println(body);
 			}
 
@@ -186,7 +186,7 @@ public class WebSimulatorServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.setStatus(statusCode);
 			ServletOutputStream responseOS = response.getOutputStream();
-			String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + ",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + ",\n   \"result\":\"" + result + "\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\"\n   \"info\":\"" + (info != null ? info : "") + "\n   \"timestamp\":\"" + System.currentTimeMillis() + "\"\n}";
+			String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + "\",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + "\",\n   \"result\":\"" + result + "\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\",\n   \"info\":\"" + (info != null ? info : "") + "\",\n   \"timestamp\":\"" + System.currentTimeMillis() + "\",\n   \"statusCode\":\"" + statusCode +"\"\n}";
 			responseOS.print(body);
 			if(isLog) {
 				System.out.println(body);
