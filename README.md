@@ -1,7 +1,7 @@
 web-stress-simulator
 ====================
 
-Application for simulating various conditions of an Web application under stress (high load on cpus, high memory usage, high network throughput, high backend delays, unusual HTTP return codes). 
+Application for simulating various conditions of an Web Infrastructure under stress (high load on cpus, high memory usage, high network throughput, high backend delays, unusual HTTP return codes). 
 
 Usage:
 * Run the container using "docker run -p 8080:8080 flaviostutz/web-stress-simulator" OR Install the WAR package on any Java Servlet Container
