@@ -1,12 +1,12 @@
 web-stress-simulator
 ====================
 
-JavaEE application for simulating various conditions of an application under stress (high load on cpus, high memory usage, high network throughput, hight backend delays, unusual HTTP return codes)
+Application for simulating various conditions of an Web application under stress (high load on cpus, high memory usage, high network throughput, high backend delays, unusual HTTP return codes). 
 
-Install the package on any Servlet Container and perform HTTP GET calls like:
-  * /web-stress-simulator-1.0.0/[operation]?[parameters]
-
-Where:
+Usage:
+* Run the container using "docker run -p 8080:8080 flaviostutz/web-stress-simulator" OR Install the WAR package on any Java Servlet Container
+* Perform HTTP GET calls in the form "/web-stress-simulator-1.0.0/[operation]?[parameters]"
+* Where:
 
 [operation] may be:
 * "cpu": use all available cpu resources for "time" milliseconds, so the Thread serving the request will cause a high load on the server (affects a single core per request). The server will be performing basic division and multiplication of double numbers in order to cause the high load.
@@ -30,3 +30,11 @@ Examples:
 * http://localhost:8080/web-stress-simulator-1.0.0/output?nbytes=3000 - causes 3KB of random text data to be returned from the server
 * http://localhost:8080/web-stress-simulator-1.0.0/output?nbytes=3000&time=60000 - the same as above, but now it will generate 3KB of data with a data rate of 0.5b/s so that it will last 60 seconds to output the whole data. It's usefull to test network appliances under slow connections conditions
 * http://localhost:8080/web-stress-simulator-1.0.0/delay?time=3000&random=true&http-status=500 - causes a request with random duration (0-3s) to return a response indicating an internal error
+
+Tips:
+* Use JMeter in order to simulate various different workloads on your web infrastructure by varying the URL parameters as above
+* Perform stress tests and measure the infrastructure reaction:
+  * Create tests in JMeter that explores various web invocations situations (slow requests, big requests, stuck requests, fast and small requests, lots of users, high users ramp, lots of different URLs, attached files etc). Be sure to create assertions for each request in order to validate the server responses. This is important for you to know what is going right or wrong during stress.
+  * Start JMeter tests. Perform some "monkey caos" (thanks, Netflix...) and verify assertions in your test in order to learn how your infrastructure is handling diversity.
+    * Turn off a server node, Add a new node, slow down connection bandwidth, turn off server networking and restore again, fill up the entire disk of a node, kill available RAM, starve a node CPU
+* Have fun creating CAOS!
