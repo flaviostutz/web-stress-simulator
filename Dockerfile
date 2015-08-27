@@ -1,7 +1,5 @@
-FROM tomcat:8.0.26-jre8
+FROM flaviostutz/tomcat-base:8-maven3-jdk8
 
-COPY src/web-app/target/*.war /usr/local/tomcat/webapps/
+COPY src/web-app/* /opt/src/web-app/
 
-RUN /usr/local/tomcat/bin/startup.sh && sleep 5
-
-EXPOSE 8080
+RUN cd /opt/src/web-app/ && mvn clean install && mv target/*.war /usr/local/tomcat/webapps/
