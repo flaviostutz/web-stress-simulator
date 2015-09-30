@@ -180,6 +180,7 @@ public class WebSimulatorServlet extends HttpServlet {
 			response.setHeader("X-WebSimulator-SessionId", request.getRequestedSessionId());
 			response.setHeader("X-WebSimulator-UserPrincipal", (request.getUserPrincipal()!=null?request.getUserPrincipal().getName():"null"));
 			response.setHeader("X-WebSimulator-Info", (info != null ? info : ""));
+			response.setHeader("X-WebSimulator-EnvInfo", (System.getenv("info") != null ? System.getenv("info") : ""));
 			response.setHeader("X-WebSimulator-RequestUrl", request.getRequestURL().toString());
 			response.setHeader("X-WebSimulator-LocalAddr", request.getLocalAddr() + ":" + request.getLocalPort());
 			response.setHeader("X-WebSimulator-RemoteClient", request.getRemoteAddr() + ":" + request.getRemotePort());
