@@ -181,13 +181,13 @@ public class WebSimulatorServlet extends HttpServlet {
 			response.setHeader("X-WebSimulator-UserPrincipal", (request.getUserPrincipal()!=null?request.getUserPrincipal().getName():"null"));
 			response.setHeader("X-WebSimulator-Info", (info != null ? info : ""));
 			response.setHeader("X-WebSimulator-EnvInfo", (System.getenv("info") != null ? System.getenv("info") : ""));
-			response.setHeader("X-WebSimulator-RequestUrl", request.getRequestURL().toString());
+			response.setHeader("X-WebSimulator-RequestUrl", request.getRequestURL().toString() + ("".equals(request.getQueryString())?"":"?"+request.getQueryString()));
 			response.setHeader("X-WebSimulator-LocalAddr", request.getLocalAddr() + ":" + request.getLocalPort());
 			response.setHeader("X-WebSimulator-RemoteClient", request.getRemoteAddr() + ":" + request.getRemotePort());
 			response.setContentType("application/json");
 			response.setStatus(statusCode);
 			ServletOutputStream responseOS = response.getOutputStream();
-			String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + "\",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + "\",\n   \"result\":\"" + result + "\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\",\n   \"info\":\"" + (info != null ? info : "") + "\",\n   \"timestamp\":\"" + System.currentTimeMillis() + "\",\n   \"statusCode\":\"" + statusCode +"\"\n}";
+			String body = "{\n   \"requestUrl\":\"" + request.getRequestURL() + ("".equals(request.getQueryString())?"":"?"+request.getQueryString()) + "\",\n   \"localAddr\":\"" + request.getLocalAddr() + ":" + request.getLocalPort() + "\",\n   \"result\":\"" + result + "\",\n   \"timeElapsedMillis\":\"" + timeElapsed + "\",\n   \"remoteClient\":\"" + request.getRemoteHost() + ":" + request.getRemotePort() + "\",\n   \"info\":\"" + (info != null ? info : "") + "\",\n   \"timestamp\":\"" + System.currentTimeMillis() + "\",\n   \"statusCode\":\"" + statusCode +"\"\n}";
 			responseOS.print(body);
 			if(isLog) {
 				System.out.println(body);
