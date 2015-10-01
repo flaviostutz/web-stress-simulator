@@ -37,6 +37,7 @@ public class WebSimulatorServlet extends HttpServlet {
 
 		String timeStr = request.getParameter("time");
 		String nbytesStr = request.getParameter("nbytes");
+		String countStr = request.getParameter("count");
 		String randomStr = request.getParameter("random");
 		String cacheTTLStr = request.getParameter("cacheTTL");
 		String logStr = request.getParameter("log");
@@ -44,6 +45,7 @@ public class WebSimulatorServlet extends HttpServlet {
 
 		int httpStatus = (httpStatusStr!=null?Integer.parseInt(httpStatusStr):200);
 		int maxNbytes = (nbytesStr != null ? Integer.parseInt(nbytesStr) : 5000);
+		long count = (countStr != null ? Long.parseLong(countStr) : 0L);
 		long maxTime = (timeStr != null ? Long.parseLong(timeStr) : 0L);
 		int cacheTTL = (cacheTTLStr != null ? Integer.parseInt(cacheTTLStr) : 0);
 		boolean isRandom = "true".equals(randomStr);
@@ -58,15 +60,34 @@ public class WebSimulatorServlet extends HttpServlet {
 		}
 
 		if (request.getRequestURI().endsWith("/cpu")) {
-			double value = 9.9;
-			while (System.currentTimeMillis() <= (now + time)) {
-				value = value / 1.0000001;
-				value = value * 1.00000015;
-				if (value > Double.MAX_VALUE / 2) {
-					value = 1.0;
+			
+			if((time==0 && count==0) || (time!=0 && count!=0)) {
+				finishTest(request, response, (System.currentTimeMillis() - now), 400, "error", 0, 
+					"Use GET '/cpu' with either 'time' or 'count' parameter. 'time' for consuming 100% cpu for that time, 'count' for counting from 0 up to cout. Ex.: http://localhost:8080/web-stress-simulator/cpu?count=10000 - will count from 0 to 10000", isLog);
+			
+			} else if(time>0) {
+				double value = 9.9;
+				while (System.currentTimeMillis() <= (now + time)) {
+					value = value / 1.0000001;
+					value = value * 1.00000015;
+					if (value > Double.MAX_VALUE / 2) {
+						value = 1.0;
+					}
 				}
+				finishTest(request, response, (System.currentTimeMillis() - now), httpStatus, "success", cacheTTL, "value=" + value, isLog);
+
+			} else if(count>0) {
+				//avoid jvm optimizations because of empty bodies
+				double value = 9.9;
+				for(long i=0; i<count; i++) {
+					value = value / 1.0000001;
+					value = value * 1.00000015;
+					if (value > Double.MAX_VALUE / 2) {
+						value = 1.0;
+					}
+				}
+				finishTest(request, response, (System.currentTimeMillis() - now), httpStatus, "success", cacheTTL, "value=" + value, isLog);
 			}
-			finishTest(request, response, (System.currentTimeMillis() - now), httpStatus, "success", cacheTTL, "value=" + value, isLog);
 
 		} else if (request.getRequestURI().endsWith("/memory")) {
 			byte[] b = new byte[nbytes];
