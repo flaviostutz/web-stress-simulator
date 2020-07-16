@@ -1,5 +1,7 @@
-web-stress-simulator
-====================
+# web-stress-simulator
+
+[<img src="https://img.shields.io/docker/pulls/flaviostutz/web-stress-simulator"/>](https://hub.docker.com/r/flaviostutz/web-stress-simulator)
+[<img src="https://img.shields.io/docker/automated/flaviostutz/web-stress-simulator"/>](https://hub.docker.com/r/flaviostutz/web-stress-simulator)
 
 Application for simulating various conditions of an Web Infrastructure under stress (high load on cpus, high memory usage, high network throughput, high backend delays, unusual HTTP return codes). 
 
